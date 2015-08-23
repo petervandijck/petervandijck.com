@@ -1,0 +1,679 @@
+<html>
+<head>
+<title>XFML Core aka version 1.0: exchanging faceted metadata language</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="../style.css" type="text/css">
+<style type="text/css">
+<!--
+.comment {  color: #999999; font-style: italic}
+blockquote {  font-family: "Courier New", Courier, mono}
+.data {  color: #FF0000}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<p><a href="/"><img src="../images/logo.jpg" width="100" height="143" alt="XFML" border="0" align="right">XFML 
+  Homepage</a> &gt; <a href="/spec/">XFML spec</a> &gt; XFML Core</p>
+<h1>XFML Core - eXchangeable Faceted Metadata Language </h1>
+<h2><a name="tableofcontents"></a>Table of contents</h2>
+<ul>
+  <li><a href="#tableofcontents">Table of contents</a></li>
+  <li><a href="#statusofthisdocument">1. Status of this document</a> 
+    <ul>
+      <li><a href="#authors">1.1 Authors</a></li>
+      <li><a href="#translations">1.2 Translations</a></li>
+      <li><a href="#revisions">1.3 Revisions</a></li>
+    </ul>
+  </li>
+  <li><a href="#introductiontoxfml">2. Introduction to XFML</a></li>
+  <li><a href="#conceptualmodel">3. Conceptual model</a> 
+    <ul>
+      <li><a href="#conceptualmodeloverview">3.1 Overview</a></li>
+      <li><a href="#valueofxfml">3.2 Why is XFML different?</a></li>
+      <li><a href="#xfmlmapconcept">3.3 XFML map concept</a></li>
+      <li><a href="#topicconcept">3.4 Topic concept</a></li>
+      <li><a href="#facetconcept">3.5 Facet concept</a></li>
+      <li><a href="#indexingconcept">3.6 Indexing concept</a></li>
+      <li><a href="#occurrenceconcept">3.7 Occurrence concept</a></li>
+      <li><a href="#occurrencestrengthconcept">3.8 Occurrencestrength concept</a></li>
+      <li><a href="#connectingtopicsconcept">3.9 Connecting topics concept</a></li>
+      <li><a href="#mapnetworkconcept">3.10 Map network concept</a></li>
+      <li><a href="#publishedsubjectindicatorconcept">3.11 Published subject indicator 
+        concept</a></li>
+      <li><a href="#xfmldocumentconcept">3.12 XFML document concept</a></li>
+      <li><a href="#publishedmapconcept">3.13 Published map concept</a></li>
+    </ul>
+  </li>
+  <li><a href="#xfmlformatspecification">4. XFML format specification</a> 
+    <ul>
+      <li><a href="#namespace">4.1 Namespace</a></li>
+      <li><a href="#xfml"><b>4.2 &lt;xfml&gt;</b></a> 
+        <ul>
+          <li><a href="#xfmlversion">4.2.1 version</a></li>
+          <li><a href="#xfmlurl">4.2.2 url</a></li>
+          <li><a href="#xfmllanguage">4.2.3 language</a></li>
+          <li><a href="#mapinfo"><b>4.2.4 &lt;mapInfo&gt;</b></a> 
+            <ul>
+              <li><a href="#mapinfolastupdate">4.2.4.1 lastUpdate</a></li>
+              <li><a href="#mapinfonextupdate">4.2.4.2 nextUpdate</a></li>
+              <li><a href="#managingeditor">4.2.4.3 &lt;managingEditor&gt;</a></li>
+              <li><a href="#editor">4.2.4.4 &lt;editor&gt;</a></li>
+              <li><a href="#mapinfopublisher">4.2.4.5 &lt;publisher&gt;</a></li>
+              <li><a href="#webmaster">4.2.4.6 &lt;webMaster&gt;</a></li>
+              <li><a href="#mapinfolicense">4.2.4.7 &lt;license&gt;</a> 
+                <ul>
+                  <li><a href="#text">4.2.4.7.1 &lt;text&gt;</a></li>
+                </ul>
+              </li>
+              <li><a href="#mapinfogenerator">4.2.4.8 &lt;generator&gt;</a> 
+                <ul>
+                  <li><a href="#name">4.2.4.8.1 &lt;name&gt;</a></li>
+                  <li><a href="#email">4.2.4.8.2 &lt;email&gt;</a></li>
+                  <li><a href="#url">4.2.4.8.3 &lt;url&gt;</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#facet"><b>4.2.5 &lt;facet&gt;</b></a> 
+            <ul>
+              <li><a href="#facetid">4.2.5.1 id</a></li>
+            </ul>
+          </li>
+          <li><a href="#topic"><b>4.2.6 &lt;topic&gt;</b></a> 
+            <ul>
+              <li><a href="#topic"></a><a href="#topicid">4.2.6.1 id</a></li>
+              <li><a href="#topicfacetid">4.2.6.2 facetid</a></li>
+              <li><a href="#topicparenttopicid">4.2.6.3 parentTopicid</a></li>
+              <li><a href="#topicname">4.2.6.4 &lt;name&gt;</a></li>
+              <li><a href="#topicconnect">4.2.6.5 &lt;connect&gt;</a></li>
+              <li><a href="#topicpsi">4.2.6.6 &lt;psi&gt;</a></li>
+              <li><a href="#topicdescription">4.2.6.7 &lt;description&gt;</a></li>
+            </ul>
+          </li>
+          <li><a href="#page"><b>4.2.7 &lt;page&gt;</b></a> 
+            <ul>
+              <li><a href="#pageurl">4.2.7.1 url</a></li>
+              <li><a href="#pagetitle">4.2.7.2 &lt;title&gt;</a></li>
+              <li><a href="#pagedescription">4.2.7.3 &lt;description&gt;</a></li>
+              <li><a href="#pageoccurrence">4.2.7.4 &lt;occurrence&gt;</a> 
+                <ul>
+                  <li><a href="#pagetopicid">4.2.7.4.1 topicid</a></li>
+                  <li><a href="#pagestrength">4.2.7.4.2 strength</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#processinginstructions">5. Processing instructions</a> 
+    <ul>
+      <li><a href="#implementationchecklist">5.1 Implementation checklist</a></li>
+      <li><a href="#generalprocessing">5.2 General processing suggestions</a></li>
+      <li><a href="#publishingxfml">5.3 Publishing XFML</a></li>
+      <li><a href="#xfmlcompatible">5.4 XFML Core compatible</a></li>
+      <li><a href="#indicatingxfmldocuments">5.5 Indicating XFML documents</a></li>
+      <li><a href="#compatibleformats">5.6 Compatible formats</a></li>
+      <li><a href="#resolvinguri">5.7 Resolving relative URI's</a></li>
+    </ul>
+  </li>
+  <li><a href="#license">6. License</a></li>
+</ul>
+<h2><a name="statusofthisdocument"></a>1. Status of this document</h2>
+      
+<p><b>This is the final and frozen version of this specification. </b></p>
+      
+<p>Please feel free to base your implementations on this spec - it is frozen and 
+  will not change. Possible future versions of XFML (see <a href="http://xfml.org/spec/">http://xfml.org/spec/</a>) 
+  will remain backwards compatible.</p>
+      
+<p>The permanent URL for XFML Core is <a href="http://purl.oclc.org/NET/xfml/core/">http://purl.oclc.org/NET/xfml/Core/</a>, 
+  which redirects to this page at <a href="http://www.xfml.org/spec/1.0.html"><b>http://www.xfml.org/spec/1.0.html</b></a> 
+</p>
+<p><a name="authors"></a><a href="#authors">1.1 Authors</a></p>
+<p>XFML Core was developed by Peter Van Dijck (<a href="http://petervandijck.net">http://petervandijck.net</a>), 
+  with crucial support and feedback from Matt Mower, Travis Wilson, Eric Scheid, 
+  Danny Ayers, David Gammel, Leonard Will, Louis Argerich and many more that I 
+  have forgotten to mention here.</p>
+<p><a name="translations"></a><a href="#translations">1.2 Translations</a></p>
+<p>The English version of this document is the only normative one. However, translations 
+  are encouraged and will be linked here.</p>
+<p><a name="revisions"></a><a href="#revisions">1.3 Revisions</a></p>
+<p><b>13 December, 2002</b>: Some inconsistencies in the spec were pointed out 
+  by <a href="http://www.diveintomark.org/">Mark Pilgrim</a>. <b>The spec hasn't 
+  changed</b> - your implementations need no changes.</p>
+<ul>
+  <li>Changed the example of the <a href="#facet">facet element</a> because id's 
+    cannot start with a number (this follows from the DTD and wasn't explained 
+    explicitly in this spec). </li>
+  <li>Added &quot;with the exception that the year may be expressed with two characters 
+    or four characters (four preferred)&quot; to the date format for the <a href="#mapinfolastupdate">update 
+    elements</a> explanation. The example was always correct, I was sloppy with 
+    the description.</li>
+</ul>
+<p><b>14 February, 2003</b>. Some additions and clarifications. Again, <b>the 
+  spec hasn't been changed, just clarified </b>- your implementations should remain 
+  compatible.</p>
+<ul>
+  <li>Added numbering for easy reference when HTML is not available, suggestion 
+    of <a href="http://www.jeremyshantz.com">Jeremy Shantz</a>.</li>
+  <li>Added <a href="#namespace">namespace</a>, suggestion of <a href="http://www.xml.com/cs/user/view/cs_msg/981">Robin 
+    Berjon</a>.</li>
+  <li>Clarified how to resolve relative URI's at <a href="#resolvinguri">5.7 Resolving 
+    relative URI's</a> (this and the following thanks to suggestions of <b>Lars 
+    Marius Garshol</b>)</li>
+  <li>Changed <a href="#publishingxfml">the recommendation for the MIME type and 
+    extension to be used</a>.</li>
+  <li>Added a note to <a href="#topicfacetid">the facetid in the topic element</a>. 
+  </li>
+  <li>Added a note (<a href="#521">5.2.1</a>) on different behaviour for processors 
+    than expected if you are used to XTM.</li>
+  <li>Added a note on the semantics of the facet-topic relationship in the explanation 
+    of <a href="#topicconcept">the topic concept</a>.</li>
+</ul>
+<h2><a name="introductiontoxfml"></a>2. Introduction to XFML</h2>
+      
+<p>This specification defines XFML version 1.0 aka &quot;XFML Core&quot;. </p>
+      
+<p>XFML lets you <b>exchange hierarchical faceted metadata</b>. It also lets you 
+  indicate topics in different published XFML documents are equal, thus allowing 
+  you to <b>reuse indexing efforts</b>.</p>
+      <p>XFML borrows many ideas from Topicmaps, a format you should check out 
+        if you like the ideas behind XFML but are frustrated with its limitations 
+        (see <a href="http://topicmaps.org">http://topicmaps.org</a>). </p>
+      <p>The <i><b>XFML specification</b></i> (this document), that explains what 
+        xfml is, consists of three things:</p>
+      
+<ul>
+  <li>a bunch of concepts, i.e..<b><i>a conceptual model</i></b>.</li>
+  <li> an XML format for expressing these concepts </li>
+  <li>a set of <b><i>processing instructions</i></b> that explain how applications 
+    should work with XFML data.</li>
+</ul>
+      
+<h2><a name="conceptualmodel"></a>3. Conceptual model</h2>
+      
+<p><a name="conceptualmodeloverview"></a><a href="#conceptualmodeloverview">3.1 
+  Overview</a></p>
+<p>XFML is a model to express <i><b>topics</b></i>, organised in hierarchies or 
+  trees within mutually exclusive containers called <i><b>facets</b></i>. It also 
+  expresses <i><b>indexing</b></i> efforts: metadata you have assigned to pages. 
+  It lets you publish this information in an <b>open, XML based format</b>. Finally, 
+  XFML lets you build connections between different XFML maps, by indicating that 
+  a topic in one map is equal to a topic in another map: we call this <i><b>connecting 
+  topics</b></i><b>, </b>or that a topic is described on a certain resource (a 
+  webpage usually), we call this <i><b>published subject indicators</b></i>.</p>
+<p><a name="valueofxfml"></a><a href="#valueofxfml">3.2 Why is XFML different?</a></p>
+<p>The Core value proposition of <b>XFML Core</b> is that it lets you <b>share 
+  and reuse indexing efforts</b> (see <a href="#indexingconcept">indexing concept</a>) 
+  by publishing your metadata, without needing any kind of central or distributed 
+  definition of your topics. Quality indexing is hard - reusing indexing efforts 
+  will make metadata more useful. This is important: with XFML there is no centrally 
+  defined set of metadata. Each author defines their own facets and topics. XFML 
+  can get away with not having a central store of metadata because it lets authors 
+  connect individual topics between two specific maps - see <a href="#connectingtopicsconcept">connection 
+  topics concept</a>. </p>
+<p>XFML Core also provides a simple format to share and reuse faceted metadata 
+  hierarchies (the topics and facets). If you export XFML, you can import it in 
+  a variety of faceted metadata browsing applications that support XFML like <a href="http://facetmap.com">Facetmap</a>.</p>
+<p>XFML is a<b> specialised format</b>, as opposed to XTM or RDF, which are generic 
+  metadata formats. XFML will not solve all your metadata needs. </p>
+<p>XFML, by design, is simple to write code for.</p>
+<p><a name="xfmlmapconcept"></a><a href="#xfmlmapconcept">3.3 XFML map concept</a></p>
+      <p>An XFML map consists of data that represents xfml concepts as described 
+        in the conceptual model you are reading now. The data is often kept in 
+        a database and published as an XFML document. </p>
+      
+<p><a name="topicconcept"></a><a href="#topicconcept">3.4 Topic concept</a></p>
+      
+<p>Anything you can possible imagine, whether it exists or not, can be a topic. 
+</p>
+<p>The creator of the map defines topics as he sees fit. For example: 'love&quot; 
+  can be a topic. Or &quot;5 o'clock in the afternoon&quot;. Or &quot;Shakespeare&quot;. 
+  The topic concept is the same as it is in <a href="http://topicmap.org">topicmaps</a>. 
+</p>
+<p>Note the difference between a topic and a term, as used in thesauri for example. 
+  A topic is an abstract entity, a term is a specific (set of) words. So the topic 
+  &quot;accessibility&quot; could be described by the term &quot;accessibility&quot;, 
+  but also by the terms &quot;universal access&quot; or &quot;ease of access&quot;. 
+  XFML doesn't deal with terms, it deals with topics.</p>
+<p>Topics are organised in hierarchies (trees), from general to specific. A topic 
+  can have one other topic as parent (no multiple parents allowed). Each topic 
+  belongs to one facet. There can't be two representations of the same topic in 
+  a map. Two topics are equal if at least one of their psi's are equal, or if 
+  at least one of their <a href="#connectingtopicsconcept">connections</a> are 
+  equal.</p>
+<p>A topic always belongs to one and only one facet. The semantics of the facet-topic 
+  relationships are as follows: topics are not instances of facets, they are members 
+  of a facet. For example, the topic USA is not an instance of the facet Geography, 
+  it is a member.</p>
+      
+<p><a name="facetconcept"></a><a href="#facetconcept">3.5 Facet concept</a></p>
+      
+<p>Facets are mutually exclusive containers that contain hierarchies of topics. 
+</p>
+<p>Mutually exclusive means that a certain topic can only possibly belong to one 
+  facet. &quot;Things to do&quot; and &quot;Places to go&quot; are good facets, 
+  because a topic can never be both a thing to do and a place to go to. &quot;People&quot; 
+  and &quot;Colours&quot; are two other good facets. &quot;Cities&quot; and &quot;Places 
+  to visit&quot; are bad facets if used in the same map because &quot;Brussels&quot; 
+  (a potential topic) could belong to both. Note that the &quot;mutually exclusive&quot; 
+  requirement is not something that can be enforced by software. </p>
+<p>If you want to see what navigation using facets can look like, visit <a href="http://facetmap.com">http://facetmap.com</a></p>
+<p>To avoid confusion, note that <b>the term &quot;facets&quot; is used with somewhat 
+  different meanings by different people</b>. So is the term &quot;taxonomy&quot;, 
+  which is why we are avoiding it in this spec. The term &quot;facet&quot; in 
+  XFML is used very much like the library-science definition of the term. An excellent 
+  overview of the term &quot;faceted classification&quot; can be found at <a href="http://www.kmconnection.com/DOC100100.htm">http://www.kmconnection.com/DOC100100.htm</a></p>
+<p>In programming terms: only the top level of a tree is called a &quot;facet&quot; 
+  in XFML - all the children are called &quot;topics&quot; (because they don't 
+  have to be mutually exclusive). A page cannot be indexed with the &quot;facet&quot;, 
+  only with the topics. A map can contain multiple trees of topics (with a different 
+  facet as the root for each) .</p>
+      
+<p><a name="indexingconcept"></a><a href="#indexingconcept">3.6 Indexing concept</a></p>
+      
+<p>Indexing means assigning topics to pages. Or pages to topics - same thing. 
+  When you index a webpage you say: &quot;This webpage is about the following 
+  topics in my map: [list the topics here]&quot;. Since no write-access is needed 
+  to a webpage to index it in your map, you can index anything on the web. </p>
+      
+<p><a name="occurrenceconcept"></a><a href="#occurrenceconcept">3.7 Occurrence 
+  concept</a></p>
+      
+<p>An occurrence of a topic on a page is what happens when you index that page 
+  with that topic. The topic &quot;occurs&quot; on that page. </p>
+      
+<p><a name="occurrencestrengthconcept"></a><a href="#occurrencestrengthconcept">3.8 
+  Occurrencestrength concept</a></p>
+      
+<p>Occurrencestrength indicates how strong you believe in your indexing of that 
+  particular topic to that particular page. </p>
+<p>Occurrencestrenght is a whole number from 1 to infinity. An occurrencestrength 
+  of 1 means you have complete confidence in your indexing: you have indexed it 
+  yourself, manually. Higher numbers mean less confidence. If you reuse indexing 
+  work of others, you will generally add one (+1) to the occurrencestrength: your 
+  confidence in the indexing decreases (since you didn't do it yourself). In this 
+  way, occurrencestrenght also serves as an indicator of degrees of separation 
+  to the source of indexing. </p>
+<p><a name="connectingtopicsconcept"></a><a href="#connectingtopicsconcept">3.9 
+  Connecting topics concept</a></p>
+      
+<p>If two topics are connected in a map, it means the map's author had indicated 
+  he believes these topics are the same. They may have different names, but they 
+  are about exactly the same concept. You can only connect topics in separate 
+  maps, not within the same map. </p>
+<p>Once you have connected topics, you can reuse indexing efforts of other authors, 
+  since you now know what their topics mean relative to your topics. There is 
+  no connection scope: two topics are either connected (are equal in all ways) 
+  or not. Connections are one-way: two topics in two different maps can be connected 
+  in one map (the author of the map indicated they were equal), but unconnected 
+  in another map (the author of that map didn't connect them). </p>
+<p>Two topics in the same map cannot be connected to the same topic in another 
+  map, since that would mean they were equal.</p>
+<p>Connecting topics is a very important concept in XFML - see <a href="#valueofxfml">why 
+  is XFML different</a>.</p>
+<p><a name="mapnetworkconcept"></a><a href="#mapnetworkconcept">3.10 Map network 
+  concept</a></p>
+<p>A map's &quot;network&quot; is the collection of maps that have topics that 
+  are connected to topics in this map. So if you connect topicA in mapA to topicX 
+  in mapX, then mapX is in the network of mapA. Note that mapA isn't in the network 
+  of mapX until authorX connects topicX with topicA in mapX. </p>
+<p><a name="publishedsubjectindicatorconcept"></a><a href="#publishedsubjectindicatorconcept">3.11 
+  Published subject indicator concept</a></p>
+      
+<p>The psi or <b>published subject indicator</b> is a link to a (preferrably human 
+  readable) resource that defines this topic. It is pretty much the same as a 
+  psi in topicmaps. Only one topic in a map can point to one psi (if not the two 
+  topics would be identical). A topic can have multiple psi's. The idea is that, 
+  if two topics in two different maps have the same psi, then an application will 
+  know for sure they are identical. </p>
+<p><a name="xfmldocumentconcept"></a><a href="#xfmldocumentconcept">3.12 XFML 
+  document concept</a></p>
+      <p>An XFML document is a file in XFML format containing XFML data. An XFML 
+        document is a published map.</p>
+      
+<p><a name="publishedmapconcept"></a><a href="#publishedmapconcept">3.13 Published 
+  map concept</a></p>
+      
+<p>A published map is a document (usually in the XML format specified in this 
+  spec, in which case it is an XFML document, but it could be published in another 
+  format) that has been made available to the public, usually on the web. An XFML 
+  map can be published, but doesn't have to be; you could also just use it internally 
+  and never publish it. So in short: an <a href="#xfmlmapconcept">XFML map</a> 
+  (i.e. the data) can be <a href="#publishedmapconcept">published</a> as an <a href="#xfmldocumentconcept">XFML 
+  document</a>. </p>
+<h2><a name="xfmlformatspecification"></a>4. XFML format specification</h2>
+      
+<p> An XFML document is a valid, well formed XML document, and conforms to the 
+  XFML DTD found here: <a href="xfml.dtd">http://xfml.org/spec/xfml.dtd</a> and 
+  to this spec. </p>
+<p>Here is an example XFML file: <a href="http://xfml.org/spec/example.xml">http://xfml.org/spec/example.xml</a></p>
+<p><a name="speccomments"></a>It is recommended to add a comment indicating the 
+  location of this spec to your XFML file, as follows:</p>
+<p><code>&lt;!-- This document conforms to XFML Core. See http://purl.oclc.org/NET/xfml/Core/ 
+  --&gt;</code></p>
+      <p><a name="namespace"></a><a href="#namespace"><b>4.1 Namespace</b></a></p>
+<p>The XML namespace for XFML Core is <a href="http://purl.oclc.org/NET/xfml/core/">http://purl.oclc.org/NET/xfml/core/</a> 
+  (which points to this spec)</p>
+<p><a name="xfml"></a><a href="#xfml"><b>4.2 &lt;xfml&gt;</b></a></p>
+      <p>Parent element of an XFML document.</p>
+      <p>Example: </p>
+      <p><code>&lt;xfml version=&quot;1.0&quot; url=&quot;http://domain.com/xfml/map1.xml&quot; 
+        language=&quot;en-us&quot;&gt;</code></p>
+      
+<p>Child elements: optional <a href="#mapinfo">&lt;mapInfo&gt;</a>, and multiple 
+  optional <a href="#facet">&lt;facet&gt;</a>, <a href="#topic">&lt;topic&gt;</a> 
+  and <a href="#page">&lt;page&gt;</a> elements. </p>
+      <p>Attributes:</p>
+      <blockquote> 
+        
+  <p><a name="xfmlversion"></a><a href="#xfmlversion">4.2.1 version</a></p>
+        <p>Required attribute, for XFML Core version=&quot;1.0&quot;</p>
+        
+  <p><a name="xfmlurl"></a><a href="#xfmlurl">4.2.2 url</a></p>
+        <p>Required attribute. Contains the url where this map is kept. The reason 
+          it is required is that we then have an unambiguous pointer to topics 
+          in this map.</p>
+        
+  <p><a name="xfmllanguage"></a><a href="#xfmllanguage">4.2.3 language</a></p>
+        
+  <p>Optional attribute indicating the language of the entire map. Takes a two 
+    or four letter language code. Two-letter primary codes are reserved for <a href="http://www.oasis-open.org/cover/iso639a.html">ISO639</a> 
+    language abbreviations. Two-letter codes include fr (French), de (German), 
+    it (Italian), nl (Dutch), el (Greek), es (Spanish), pt (Portuguese), ar (Arabic), 
+    he (Hebrew), ru (Russian), zh (Chinese), ja (Japanese), hi (Hindi), ur (Urdu), 
+    and sa (Sanskrit). Four letter codes contain a two-letter subcode (like this: 
+    &quot;en-us&quot; or &quot;en-uk&quot;) where the subcode is understood to 
+    be a <a href="http://nl.ijs.si/gnusl/cee/std/ISO_3166.html">ISO3166</a> country 
+    code.</p>
+      </blockquote>
+      <p>Child elements:<br>
+      </p>
+      
+<blockquote> 
+  <p><a name="mapinfo"></a><a href="#mapinfo"><b>4.2.4 &lt;mapInfo&gt;</b></a></p>
+  <p>Describes (all optional) information about this map. </p>
+  <p>Example:</p>
+  <p><code>&lt;mapInfo lastUpdate=&quot;&quot; nextUpdate=&quot;&quot;&gt;</code></p>
+  <p>Attributes:</p>
+  <blockquote> 
+    <p><a name="mapinfolastupdate"></a><a href="#mapinfolastupdate">4.2.4.1 lastUpdate</a></p>
+    <p>Date of the last update of this map. A new lastUpdate date should only 
+      be added when a <b>structural</b> change is made: a change in topics, facets 
+      or occurrences. Changes in the <a href="#mapinfo">mapInfo element</a> or 
+      changes in comments in the map should not result in a new lastUpdate date. 
+      This and the nextUpdate attribute follow the <a href="http://asg.web.cmu.edu/rfc/rfc822.html">RFC822</a> 
+      convention, with the exception that the year may be expressed with two characters 
+      or four characters (four preferred), like this: &quot;Sat, 07 Sep 2002 0:00:01 
+      GMT&quot;.</p>
+    <p><a name="mapinfonextupdate"></a><a href="#mapinfonextupdate">4.2.4.2 nextUpdate</a></p>
+    <p>Date of the next expected update of this map. Applications downloading 
+      the map should reload the map on or after this date to check for updates.</p>
+  </blockquote>
+  <p>Child elements:</p>
+  <blockquote> 
+    <p><a name="managingeditor"></a><a href="#managingeditor">4.2.4.3 &lt;managingEditor&gt;</a></p>
+    <p>Zero or one in the mapInfo element. The managing editor is the person responsible 
+      for the content of the map. Contains a <a href="#name">name element</a>, 
+      an optional <a href="#email">email element</a> and an optional <a href="#url">url 
+      element</a>.</p>
+    <p><a name="editor"></a><a href="#editor">4.2.4.4 &lt;editor&gt;</a></p>
+    <p>Zero or more in the mapInfo element. Editors are editors of the map. There 
+      should be a managingEditor if you have any editors. Each contains a <a href="#name">name 
+      element</a>, an optional <a href="#email">email element</a> and an optional 
+      <a href="#url">url element</a>.</p>
+    <p><a name="mapinfopublisher"></a><a href="#mapinfopublisher">4.2.4.5 &lt;publisher&gt;</a></p>
+    <p>Zero or one in the mapInfo element. The publisher is the owner of the map 
+      (so not nessecarily the website where it is published). Contains a <a href="#name">name 
+      element</a>, an optional <a href="#email">email element</a> and an optional 
+      <a href="#url">url element</a>.</p>
+    <p><a name="webmaster"></a><a href="#webmaster">4.2.4.6 &lt;webMaster&gt;</a></p>
+    <p>Zero or one in the mapInfo element. The webmaster is the person to contact 
+      in case of technical problems or questions. Contains a <a href="#name">name 
+      element</a>, an optional <a href="#email">email element</a> and an optional 
+      <a href="#url">url element</a>.</p>
+    <p><a name="mapinfolicense"></a><a href="#mapinfolicense">4.2.4.7 &lt;license&gt;</a></p>
+    <p>Zero or one in the mapInfo element. The license describes how people can 
+      use the map. Contains a <a href="#text">text element</a>, describing the 
+      license, an optional <a href="#name">name element</a>, containing a title 
+      for the license, an optional <a href="#email">email element</a> and an optional 
+      <a href="#url">url element</a> linking to the complete license.</p>
+    <blockquote> 
+      <p><a name="text"></a><a href="#text">4.2.4.7.1 &lt;text&gt;</a></p>
+      <p>Contains text explaining the license. No HTML.</p>
+    </blockquote>
+    <p><a name="mapinfogenerator"></a><a href="#mapinfogenerator">4.2.4.8 &lt;generator&gt;</a></p>
+    <p>Zero or one in the mapInfo element. The generator is the software that 
+      generated the map. Contains a <a href="#name">name element</a>, an optional 
+      <a href="#email">email element</a> and an optional <a href="#url">url element</a>.</p>
+    <blockquote> 
+      <p><a name="name"></a><a href="#name">4.2.4.8.1 &lt;name&gt;</a></p>
+      <p>Contains a string that is the name - for use with the <a href="#managingeditor">managingEditor</a>, 
+        <a href="#editor">editor</a>, <a href="#mapinfopublisher">publisher</a>, 
+        <a href="#webmaster">webMaster</a>, <a href="#mapinfolicense">license</a> 
+        and <a href="#mapinfogenerator">generator</a> elements.</p>
+      <p><a name="email"></a><a href="#email">4.2.4.8.2 &lt;email&gt;</a></p>
+      <p>Contains a string that is the email - for use with the <a href="#managingeditor">managingEditor</a>, 
+        <a href="#editor">editor</a>, <a href="#mapinfopublisher">publisher</a>, 
+        <a href="#webmaster">webMaster</a>, <a href="#mapinfolicense">license</a> 
+        and <a href="#mapinfogenerator">generator</a> elements.</p>
+      <p><a name="url"></a><a href="#url">4.2.4.8.3 &lt;url&gt;</a></p>
+      <p>Contains a string that is the url - for use with the <a href="#managingeditor">managingEditor</a>, 
+        <a href="#editor">editor</a>, <a href="#mapinfopublisher">publisher</a>, 
+        <a href="#webmaster">webMaster</a>, <a href="#mapinfolicense">license</a> 
+        and <a href="#mapinfogenerator">generator</a> elements.</p>
+    </blockquote>
+  </blockquote>
+  <p><a name="facet"></a><a href="#facet"><b>4.2.5 &lt;facet&gt;</b></a></p>
+  <p>A facet is a container that contains topic trees. The value is the name of 
+    the facet.</p>
+  <p>Example: (note id's are not allowed to start with a number)</p>
+  <p><code>&lt;facet id=&quot;a2&quot;&gt;Things to do&lt;/facet&gt;</code></p>
+  <p>Attributes:</p>
+  <blockquote> 
+    <p><a name="facetid"></a><a href="#facetid">4.2.5.1 id</a></p>
+    <p>Required attribute. id is unique within topics and facets.</p>
+  </blockquote>
+  <p><a name="topic"></a><a href="#topic"><b>4.2.6 &lt;topic&gt;</b></a></p>
+  <p>See the <a href="#topicconcept">topic concept</a>.</p>
+  <p>Example:</p>
+  <p><code>&lt;topic id=&quot;red_wine&quot; facetid=&quot;wine_colours&quot; 
+    parentTopicid=&quot;wine&quot;&gt;&lt;name&gt;Red wine&lt;/name&gt; [...] 
+    </code></p>
+  <p>Attributes:</p>
+  <blockquote> 
+    <p><a name="topicid"></a><a href="#topicid">4.2.6.1 id</a></p>
+    <p>Required attribute. id is unique within topics and facets.</p>
+    <p><a name="topicfacetid"></a><a href="#topicfacetid">4.2.6.2 facetid</a></p>
+    <p>Required attribute. The id of a facet in this map. </p>
+    <p><b>Note</b>: the facetid attribute on &lt;topic&gt; is redundant when a 
+      parentTopicId is specified. It was included for exporting in environments 
+      with limited scripting capabilities (like a templating system). The parent 
+      topic must belong to the same facet as the topic.</p>
+    <p><a name="topicparenttopicid"></a><a href="#topicparenttopicid">4.2.6.3 
+      parentTopicid</a></p>
+    <p>Optional. The id of a topic defined somewhere in this map. Only topics 
+      that have the same facetid can be parents of this topic. A topic can have 
+      only one parent. </p>
+  </blockquote>
+  <p>Child elements:</p>
+  <blockquote> 
+    <p><a name="topicname"></a><a href="#topicname">4.2.6.4 &lt;name&gt;</a></p>
+    <p>Required, value is the name of this topic.</p>
+    <p><a name="topicconnect"></a><a href="#topicconnect">4.2.6.5 &lt;connect&gt;</a></p>
+    <p>Zero or more. Lets you indicate a topic is equal to another topic in another 
+      map. Value is a URL to another XFML map, plus the character # plus the id 
+      of a topic in that map. See <a href="#connectingtopicsconcept">connecting 
+      topics concept</a>. For example: <code>&lt;connect&gt;http://othersite.com/othermap.xml#othertopic&lt;/connect&gt;</code></p>
+    <p><a name="topicpsi"></a><a href="#topicpsi">4.2.6.6 &lt;psi&gt;</a></p>
+    <p>Zero or more. Published subject indicators let you point this topic (using 
+      a URI) to a published subject like a webpage or an anchor link on a webpage 
+      that clearly describes the topic. See <a href="#publishedsubjectindicatorconcept">published 
+      subject indicator concept.</a></p>
+    <p><a name="topicdescription"></a><a href="#topicdescription">4.2.6.7 &lt;description&gt;</a></p>
+    <p>Optional. Value is text describing the topic.</p>
+  </blockquote>
+  <p><a name="page"></a><a href="#page"><b>4.2.7 &lt;page&gt;</b></a></p>
+  <p>Refers to a webpage that you have indexed with topics in this map.</p>
+  <p>Example:</p>
+  <p><code>&lt;page url=&quot;http://domain.com/somepage.html&quot;&gt;&lt;title&gt;Title 
+    of page&lt;/title&gt;&lt;occurrence topicid=&quot;some_topicid_inthismap&quot; 
+    strength=&quot;1&quot; /&gt;&lt;occurrence topicid=&quot;some_other_topicid_inthismap&quot; 
+    strength=&quot;1&quot; /&gt;&lt;/page&gt;</code></p>
+  <p>Attributes:</p>
+  <blockquote> 
+    <p><a name="pageurl"></a><a href="#pageurl">4.2.7.1 url</a></p>
+    <p>Required. The url of the page. Is unique in map: only one page element 
+      can have the same url in a map.</p>
+  </blockquote>
+  <p>Child elements:</p>
+  <blockquote> 
+    <p><a name="pagetitle"></a><a href="#pagetitle">4.2.7.2 &lt;title&gt;</a></p>
+    <p>Optional: value is a title for the page. Can be the value of the HTML &lt;title&gt; 
+      element, or something else.</p>
+    <p><a name="pagedescription"></a><a href="#pagedescription">4.2.7.3 &lt;description&gt;</a></p>
+    <p>Optional. A description of the page. In case of a weblog, this could hold 
+      the post.</p>
+    <p><a name="pageoccurrence"></a><a href="#pageoccurrence">4.2.7.4 &lt;occurrence&gt;</a></p>
+    <p>Zero or more. Occurrences indicate a topic occurs on this page.</p>
+    <p>Example:</p>
+    <p><code>&lt;occurrence topicid=&quot;some_other_topicid_inthismap&quot; strength=&quot;1&quot; 
+      /&gt;</code></p>
+    <p>Attributes:</p>
+    <blockquote> 
+      <p><a name="pagetopicid"></a><a href="#pagetopicid">4.2.7.4.1 topicid</a></p>
+      <p>The id of a topic in this map. Indicates that this topic occurs on this 
+        page.</p>
+      <p><a name="pagestrength"></a><a href="#pagestrength">4.2.7.4.2 strength</a></p>
+      <p>See <a href="#occurrencestrengthconcept">occurrence strength concept</a>. 
+        A whole number from 1 to infinity. The lower the number, the higher the 
+        confidence in the indexing.</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+      
+<h2><a name="processinginstructions"></a>5. Processing instructions</h2>
+<p><a name="implementationchecklist"></a><a href="#implementationchecklist">5.1 
+  Implementation checklist</a></p>
+<p>A checklist for developers implementing XFML compatible applications is available 
+  at <a href="http://xfml.net/index.php?page=ImplementationChecklist">http://xfml.net/index.php?page=ImplementationChecklist</a></p>
+<p><a name="generalprocessing"></a><a href="#generalprocessing">5.2 General processing 
+  suggestions</a></p>
+<p>When a connection between two topics in two different maps has been indicated, 
+  lots of automated processing becomes possible. The following are some examples 
+  and recommendations. Software designers can of course ignore them, or come up 
+  with their own rules.</p>
+<p>Consider mapA and topicAa, and mapB and topicBb. In mapA, topicAa has been 
+  connected to topicBb.</p>
+<ul>
+  <li><b><a name="521"></a><a href="#521">5.2.1</a> Importing occurrences.</b> 
+    An application can import occurrences of topicBb and make them occurrences 
+    of topicAa. This can be done on a regular basis. The choice could be given 
+    to the map author to import only occurrences of pages already in his map, 
+    or import new pages as well. Occurrencestrength for these imported occurrences 
+    should be (at least) one higher in mapA than they were in mapB, since you 
+    will probably have less confidence in this indexing. <b>Difference with XTM: 
+    </b>note that processors are NOT expected to go out and download XFML maps 
+    referred to with &lt;connect&gt; - a different behaviour from the similar 
+    &lt;topicRef&gt; element in XTM.</li>
+  <li><b><a name="522"></a><a href="#522">5.2.2</a> Downloading maps.</b> Since 
+    maps can get quite large, avoid hitting them every day. Use the <a href="#mapinfonextupdate">nextUpdate</a> 
+    attribute to see when you should next download the map.</li>
+  <li><b><a name="523"></a><a href="#523">5.2.3</a> Importing psi's</b>. PSI's 
+    of topicBb can be added to topicAa, since the topics have been defined to 
+    be equal. </li>
+  <li><b><a name="524"></a><a href="#524">5.2.4</a> Debugging maps.</b> Within 
+    a map, two topics cannot be the same, so they also cannot have a psi that 
+    is the same. They also shouldn't have the same name. To debug maps, use rules 
+    in the <a href="#connectingtopicsconcept">connecting topics concept</a> and 
+    the <a href="#publishedsubjectindicatorconcept">published subject indicator 
+    concept</a>.</li>
+  <li><a name="525"></a><b><a href="#525">5.2.5</a> Traversing a map's network</b>. 
+    See <a href="#mapnetworkconcept">map network concept.</a> If you connect topicAa 
+    to topicXx, then mapX is in the network of mapA. (Not nessecarily the reverse). 
+    The application could follow connected topics of topicBb, which might lead 
+    to topicCx (in mapC), which in turn could lead to topicDa (in mapD) and so 
+    on. <b>Network errors</b> can occur at this stage, in which case the decision 
+    of using a certain connection should be left to the user. A network error 
+    can occur when in mapA, topicAa = topicBb (the equal sign means &quot;is connected&quot;), 
+    in mapB topicBb = topicCx, but in mapA topicAx = topicCx. This would mean 
+    that in mapA, topicAa = topicAx. This is a network error that can't be resolved 
+    by machines, so should be presented to the map administrator.</li>
+  <li><a name="526"></a><b><a href="#526">5.2.6</a> Automatic discovery of equal 
+    topics in another map.</b> If given a map, an application can try to find 
+    equal topics: are any of the topics connected to a topic in our map? To topics 
+    in other maps that our topics are also connected to? Do any topics have the 
+    same name? Human review of the discovery results is important.</li>
+  <li><a name="527"></a><b><a href="#527">5.2.7</a> Automatic discovery of maps</b>. 
+    Use the link tag (see <a href="#indicatingxfmldocuments">indicating XFML documents</a>) 
+    to find XFML documents. If that doesn't work, try to find a link to a file 
+    called xfml.xml. </li>
+  <li><a name="528"></a><b><a href="#528">5.2.8</a> Occurrence strength</b>. Automatic 
+    indexing engines should probably be assigned a higher occurrencestrength, 
+    since they will be less reliable than manual indexing. Interfaces may let 
+    users assign different increases in occurrencestrenght for occurrences imported 
+    from other maps: a user may be able to indicate: increase the occurrencestrength 
+    of occurrences that are automatically imported from that map with 3 because 
+    I have less confidence in them.</li>
+</ul>
+<p><a name="publishingxfml"></a><a href="#publishingxfml">5.3 Publishing XFML</a></p>
+      
+<p>In general, the mimetype for a published XFML document (when accessed over 
+  HTTP) should be text/xml. This allows Web browsers to use XML formatting conventions 
+  to display an XFML document. Alternatively you can use application/x-xfml+xml, 
+  a non registered mimetype. The extension we recommend is .xfml. Alternatively 
+  you can use .xml.</p>
+<p><a name="xfmlcompatible"></a><a href="#xfmlcompatible">5.4 XFML Core compatible</a></p>
+      
+<p>An application can call itself &quot;XFML Core compatible&quot; if it follows 
+  this spec. There is a logo available to indicate Core XFML Core compatible applications, 
+  feel free to copy it and link it to this spec: (image generously provided by 
+  <a href="http://www.bryanbell.com/">Bryan Bell</a>)</p>
+      
+<p><img src="../images/xfmlcorecompatible.jpg" width="150" height="50" border="1"></p>
+<p><a name="indicatingxfmldocuments"></a><a href="#indicatingxfmldocuments">5.5 
+  Indicating XFML documents</a></p>
+<p>The availability of one or more XFML documents on a website can be indicated 
+  by this button, linking to the XFML document. In case of multiple XFML documents, 
+  you can have multiple buttons, although a page explaining the differences would 
+  be nice: (Thanks to <a href="http://weblog.delacour.net/archives/000712.html">Jonathan</a> 
+  for the button)</p>
+<p> <img src="../images/xfml.gif" width="36" height="14"></p>
+<p>For purposes of autodiscovery, available XFML documents should also be indicated 
+  in the HTML head as follows, preferably on every page of the website: (thanks 
+  to <a href="http://diveintomark.org/archives/2002/06/02.html#important_change_to_the_link_tag">Mark 
+  Pilgrim</a> for the idea)</p>
+<p><code>&lt;link rel=&quot;alternate&quot; type=&quot;application/xfml+xml&quot; 
+  title=&quot;XFML&quot; href=&quot;url/to/xfml/file&quot;&gt;</code></p>
+<p>or for XHTML:</p>
+<p><code>&lt;link rel=&quot;alternate&quot; type=&quot;application/xfml+xml&quot; 
+  title=&quot;XFML&quot; href=&quot;url/to/xfml/file&quot; /&gt;</code></p>
+<p>Note that the title is for display purposes only. Multiple link tags can be 
+  used in case of multiple XFML documents.</p>
+<p><a name="compatibleformats"></a><a href="#compatibleformats">5.6 Compatible 
+  formats</a></p>
+<p>XFML can be expressed in other formats like RDF or XTM. How exactly you express 
+  this depends on how you want to use the data. A list of formats and recommendations 
+  for converting between XFML and other formats are available at <a href="http://xfml.org/software.html#compatibleformats">http://xfml.org/software.html#compatibleformats</a></p>
+<p><a name="resolvinguri"></a><a href="#resolvinguri">5.7 Resolving relative URI's</a></p>
+<p>We recommend all URI's to be absolute in an XFML map. If you encounter relative 
+  URI's, all URIs in &lt;psi&gt; and &lt;connect&gt; and &lt;page url=&quot;...&quot;&gt; 
+  are supposed to be resolved relative to &lt;xfml url=&quot;...&quot;&gt;. <br>
+</p>
+<h2><a name="license"></a>6. License</h2>
+      
+<p>XFML Core was created by <a href="http://petervandijck.net">Peter Van Dijck</a>. 
+  It is permanently licensed to the public: it can be freely used and distributed 
+  by anyone, and this right will never be revoked. Anyone may create further versions 
+  (with version numbers higher than 1.0) of XFML, as long as they include a reference 
+  to this page in their spec.</p>
+      <p>This document and the information contained herein is provided on an &quot;AS 
+  IS&quot; basis and XFML.org and Peter Van Dijck DISCLAIM ALL WARRANTIES, EXPRESS 
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION 
+  HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY 
+  OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>XFML hierarchical faceted metadata exchange standard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<table width="100%" border="0" cellpadding="8">
+  <tr>
+    <td width="1%" valign="top"> 
+      <p><a href="/"><img src="images/logo.jpg" width="100" height="143" alt="XFML" border="0"></a></p>
+      <p>Home</p>
+      <p><a href="spec/1.0.html">XFML Specification</a></p>
+      <p>&nbsp;</p>
+    </td>
+    <td width="99%" valign="top"> 
+      <h1>eXchangeable Faceted Metadata Language.</h1>
+      <p>XFML Core is an open XML format for publishing and sharing hierarchical 
+        faceted metadata and indexing efforts. XFML Core is lightweight and easy 
+        to implement, yet uniquely powerful.</p>
+      <p><a href="spec/1.0.html">The XFML 1.0 spec is here. </a></p>
+      <p><strong>A 2007 note for researchers</strong>: my take on XFML now is this: it was an interesting experiment, a so-so spec (not great, not bad either), but I now don't think there's demand for a format to exchange faceted data, and it hasn't been used much. It was fun though. </p>
+      <h2>Announcements</h2>
+      <h3>August 2007. Moved spec. </h3>
+      <p>I lost the xfml.org domain, it got squatted, so I moved the spec to http://petervandijck.com/xfml/, which will continue to be its home in the foreseeable future. </p>
+      <h3>February 14, 2003 Clarifications to XFML Core spec.</h3>
+      <p>Added a few <a href="/spec/1.0.html#revisions">revisions</a> to XFML 
+        Core. Clarifications only - the spec hasn't changed.</p>
+      <h3>December 13, 2002 Revisions to XFML Core spec to remove minor inconsistencies 
+        with examples.</h3>
+      <p>Added <a href="/spec/1.0.html#revisions">two revisions</a> to XFML Core. 
+        Clarifications only - the spec hasn't changed.</p>
+      <h3>October 08, 2002 XFML Core.</h3>
+      <p>Today the XFML Core (aka XFML version 1.0) spec is officially published 
+        at <a href="http://purl.oclc.org/NET/xfml/core/">http://purl.oclc.org/NET/xfml/core/</a>. 
+        XFML Core is an XML language for sharing hierarchical faceted metadata 
+        and indexing efforts. XFML Core is a stable and frozen spec, and is permanently 
+        licensed to the public. XFML won&#146;t solve all your metadata problems 
+        &#150; it is focused on sharing indexing efforts with faceted metadata. 
+      </p>
+      <p>XFML was designed for power and simplicity. Coding an XFML export is 
+        often as easy as writing a template. Here is an XFML template for Moveabletype: 
+        <a href="http://poorbuthappy.com/ease/000494.html">http://poorbuthappy.com/ease/000494.html</a> 
+        Drupal (<a href="http://drupal.org">http://drupal.org</a>) has an XFML 
+        export module. Livetopics (<a href="http://www.novissio.com/products/liveTopics/liveTopics.html">http://www.novissio.com/products/liveTopics/liveTopics.html</a>), 
+        a tool to add topical metadata to Radio Userland, also exports XFML: <a href="http://radio.weblogs.com/0107808/2002/10/07.html#a458">http://radio.weblogs.com/0107808/2002/10/07.html#a458</a> 
+      </p>
+      <p>Once you publish your metadata as XFML, you can share it, and use it 
+        in other applications. Facetmap, an application to browse faceted metadata, 
+        was the first application to import XFML: <a href="http://facetmap.com">http://facetmap.com</a>. 
+        For example, you can export Livetopics as XFML and import it in Facetmap 
+        as in this example: <a href="http://radio.weblogs.com/0107808/2002/10/07.html#a457">http://radio.weblogs.com/0107808/2002/10/07.html#a457</a> 
+        Bpallen Technologies is also working on XFML support for their Teapot 
+        product: <a href="http://bpallen.com">http://bpallen.com</a>. </p>
+      <p>The real power of XFML lies in the concept of directly connecting topics. 
+        This allows authors to reuse existing indexing efforts. Metadata authoring 
+        applications that take advantage of this concept are being developed.</p>
+      <p>XFML Core was developed by Peter Van Dijck (<a href="http://petervandijck.net">http://petervandijck.net</a>), 
+        with crucial support and feedback from Matt Mower, Travis Wilson, Eric 
+        Scheid, Danny Ayers, David Gammel, Leonard Will, Louis Argerich and many 
+        more.</p>
+      <h3>July 06, 2002 XFML 0.2 released.</h3>
+      <p>Version 0.2 of XFML is published today. <br>
+        XFML is an XML format that lets you publish your metadata categories on 
+        the web in a standard format, and connect your metadata with metadata 
+        other people have published. This means you can automatically generated 
+        links to related content on your own and other websites.<br>
+        Evolution of the language.</p>
+      <p>XFML version 0.2 introduces a number of refinements compard with version 
+        0.1, most notably elements, which allow software to easily display singular 
+        or plural versions of topics, facets and occurrence types. (note - this 
+        was removed in the final spec.) The main outstanding issue currently being 
+        discussed is whether topics should be allowed to have multiple parents. 
+        It would mean more power, but we want to avoid increased complexity of 
+        implementation of XFML in a content management system. XFML is being designed 
+        so implementation of it in a content management system can be completed 
+        in, say, a weekend or two.</p>
+      <p>Compatibility with topic maps (XTM) and RDF.<br>
+        XFML is being designed as a subset of the topicmap standard (<a href="http://topicmaps.org">http://topicmaps.org</a>), 
+        optimized for a specific goal (sharing and connection faceted metadata 
+        between websites). Topic maps were designed so languages like this would 
+        be easy to define. XFML will be compatible with topicmaps in that any 
+        XFML file can be transformed into valid XTM easily. Work is also being 
+        done on RDF serialization of XFML, which will mean compatibility between 
+        XFML and RDF. This means that XFML authors will be able to use existing 
+      RDF and XTM tools.</p>
+      <h3>May 30, 2002 XFML 0.1 published.</h3>
+      <p>XFML version 0.1 is published by Peter Van Dijck (<a href="mailto:peter@poorbuthappy.com">peter@poorbuthappy.com</a>) 
+        at <a href="http://xfml.org">http://xfml.org</a>. XFML is an open XML 
+        format for publishing and connecting faceted metadata between websites. 
+        It is based on topicmaps (<a href="http://topicmaps.org">http://topicmaps.org</a>), 
+        and aims to achieve the ease of use of RSS.<br>
+      </p>
+      <p>&copy; 2002, <a href="http://petervandijck.net">Peter Van Dijck</a>. 
+        The XFML logo was designed by <a href="http://www.bryanbell.com/">Bryan 
+        Bell</a>. </p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
