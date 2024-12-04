@@ -67,11 +67,20 @@
     <item>
           <author>Peter Van Dijck</author>
           <itunes:author>Peter Van Dijck</itunes:author>
-          <title>#4 Laravel Langchain FOMO</title>
+          <title>#5 Laravel Langchain FOMO</title>
           <pubDate>4 Dec 2024 13:00:00 GMT</pubDate>
           <enclosure url="https://petervandijck.com/notesonchange/ep5.m4a" type="audio/mpeg" />
           <itunes:explicit>no</itunes:explicit>
           <description>No need for fomo</description>
     </item>
+    <item>
+              <author>Peter Van Dijck</author>
+              <itunes:author>Peter Van Dijck</itunes:author>
+              <title>#6 RAG in Laravel</title>
+              <pubDate>4 Dec 2024 13:00:00 GMT</pubDate>
+              <enclosure url="https://petervandijck.com/notesonchange/ep6.m4a" type="audio/mpeg" />
+              <itunes:explicit>no</itunes:explicit>
+              <description>RAG is easy!</description>
+        </item>
   </channel>
 </rss>
